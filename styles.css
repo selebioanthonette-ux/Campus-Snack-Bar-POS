@@ -48,6 +48,18 @@ p { margin: 0; }
 .product-price { margin-top: 4px; color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; }
 button, input { font: inherit; }
 button { min-height: 42px; padding: 9px 16px; border: 1px solid var(--accent); border-radius: 6px; font-weight: 600; }
+button:not(:disabled) { cursor: pointer; background: var(--accent); color: var(--surface); }
+button:not(:disabled):hover { background: #57301d; }
+.product-info { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.product-image { flex-shrink: 0; width: 72px; height: 72px; object-fit: cover; border-radius: 6px; }
+.cart-items { padding: 8px 0; }
+.cart-item { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.cart-item:last-child { border-bottom: 0; }
+.cart-unit-price { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.cart-subtotal { margin-top: 4px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.quantity-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.quantity-controls button { padding: 6px 12px; }
+.quantity-controls span { font-variant-numeric: tabular-nums; }
 button:disabled { cursor: not-allowed; background: var(--soft); border-color: var(--line); color: var(--muted); }
 .add-button { flex-shrink: 0; font-size: 14px; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }

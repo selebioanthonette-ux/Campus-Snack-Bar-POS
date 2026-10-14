@@ -3,17 +3,21 @@
 IT415 Practical Examination — Scenario 4.
 
 A browser-based point of sale project for a campus snack bar. The current
-version is **Checkpoint P1: project setup and basic interface**.
+version is **Checkpoint P2: core ordering, cart, and calculations**.
 
 ## Current interface
 
-- Six official products with prices and visible, disabled Add to Cart buttons.
+- Six official products with prices and working Add to Cart buttons.
+- Matching local photos for burgers, sandwich, and fries. Nachos and Soda photos are not yet displayed.
+- One cart row per product, quantity controls with a minimum of 1, and Remove.
+- Automatic subtotals, total, and change preview from the entered cash amount.
 - Separate Product List, Cart / Order Summary, Payment, and Receipt areas.
 - Desktop layout with a stacked layout on smaller screens.
 
-Cart ordering, calculations, payment validation, receipt generation, and New
-Transaction are not implemented yet. Payment controls are disabled, and the
-receipt area is a placeholder.
+Payment validation, confirmation, receipt generation, and New Transaction are
+not implemented yet. Confirm Payment remains disabled; the receipt is a placeholder.
+Change is only a calculation preview and may be negative for insufficient cash.
+Blank cash shows a dash. The in-memory cart clears when the page reloads.
 
 ## Products
 
@@ -30,7 +34,8 @@ receipt area is a placeholder.
 
 - HTML5 (`index.html`): page structure and transaction placeholders.
 - CSS (`styles.css`): colors, spacing, and responsive layout.
-- Vanilla JavaScript (`script.js`): hard-coded catalog and product rendering.
+- Vanilla JavaScript (`script.js`): hard-coded catalog, in-memory cart, rendering, and calculations.
+- Local pictures are referenced from `pitures/`; keep this folder in place.
 
 No installation, build tools, backend, or external dependencies are required.
 
@@ -39,13 +44,17 @@ No installation, build tools, backend, or external dependencies are required.
 Open `index.html` directly in a modern web browser with JavaScript enabled.
 Keep `index.html`, `styles.css`, and `script.js` in the same folder.
 
-## P1 manual checks
+## P2 manual checks
 
 1. Confirm all six names and prices match the table above.
-2. Confirm every product has a visible disabled Add to Cart button.
+2. Add one product, then add it again: one row should show quantity 2.
 3. Confirm all four application areas are clearly labeled and readable.
 4. Confirm the empty cart shows ₱0.00 and no receipt is generated.
-5. Confirm payment controls are disabled and the page explains that processing
-   is planned for a later checkpoint.
-6. Resize the browser and check that text remains readable without horizontal
+5. Increase and decrease quantities. At quantity 1, decrease is disabled; Remove deletes the item.
+6. Add Classic Burger × 2, Ham Sandwich × 1, and Soda (Can) × 2.
+   Subtotals should be ₱110.00, ₱40.00, and ₱50.00; total should be ₱200.00.
+7. Enter 250: change preview should be ₱50.00. Change quantities with cash entered
+   and verify that the preview recalculates. Clear cash: preview should show a dash.
+8. Confirm Payment stays disabled and no successful receipt appears.
+9. Resize the browser and check that text remains readable without horizontal
    scrolling.
