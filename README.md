@@ -7,7 +7,7 @@ with HTML5, CSS, and vanilla JavaScript. P3 completes the required transaction f
 
 ## Features
 
-- Six official products and prices, with four matching local product photos.
+- Six official products and prices, with six matching local product photos.
 - Add to Cart; repeated adds increase quantity in the existing row.
 - Increase, decrease (minimum 1), and Remove controls.
 - Automatic item subtotals, total, and change preview.
@@ -16,7 +16,7 @@ with HTML5, CSS, and vanilla JavaScript. P3 completes the required transaction f
 - Digital receipt overlay with items, quantities, subtotals, total, paid amount,
   change, and sequential transaction reference.
 - Completed orders are locked until New Transaction clears the transaction.
-- Compact desktop layout with catalog, cart, and payment side by side. Receipt
+- Brown-and-cream desktop layout with a three-card product grid on the left and cart/payment panels on the right. Receipt
   uses a native dialog and consumes no space in the main layout when closed.
 
 ## Official products
@@ -36,7 +36,7 @@ with HTML5, CSS, and vanilla JavaScript. P3 completes the required transaction f
 - `styles.css`: readable compact layout, responsive rules, dialog styling.
 - `script.js`: hard-coded products, in-memory cart, calculations, payment,
   receipt generation, and reset.
-- `pitures/`: four photos currently referenced by the catalog.
+- `pitures/`: six photos currently referenced by the catalog.
 - `tests/cart.test.cjs`: optional Node.js checks using a minimal DOM stub.
 
 There are no external dependencies, frameworks, backend, database, or build tools.
@@ -74,7 +74,7 @@ image loading, native dialog focus behavior, or screenshot fit.
 
 Perform these checks in a browser:
 
-1. Verify all six products and prices, and the four matching photos.
+1. Verify all six products and prices, and the six matching photos.
 2. Add one product, several products, and the same product repeatedly. Repeated
    Add should increase quantity without duplicate rows.
 3. Increase/decrease quantities; decrease is disabled at 1. Remove items.
@@ -93,7 +93,7 @@ Perform these checks in a browser:
 10. Repeat the primary order with `250`: accept with ₱50.00 change and the next
     sequential reference. Invalid payments must not consume a reference.
 11. Add all six products. On a desktop viewport of at least 1100 × 720 CSS pixels
-    at 100% zoom, check all six cart rows and payment fit without page scrolling.
+    at 100% zoom, check Product List and Payment bottoms align. Cart items scroll internally when needed; heading and Total stay visible.
     Check the six-item receipt overlay and take screenshots. Smaller windows or
     enlarged text may scroll; content is not clipped to force a fit.
 12. Complete one uninterrupted add → adjust → review → pay → receipt → new

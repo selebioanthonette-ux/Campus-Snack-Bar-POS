@@ -95,9 +95,9 @@ assert.equal(total(), "₱280.00");
 cash("280");
 assert.equal(change(), "₱0.00");
 const images = catalog.querySelectorAll("img");
-assert.equal(images.length, 4);
+assert.equal(images.length, 6);
 images.forEach((image) => assert.ok(fs.existsSync(path.join(root, image.src)), image.src));
-console.log("PASS: cart button actions, quantities, minimum, removal, subtotals, totals, cash input, change updates, focus restoration, and four local image paths.");
+console.log("PASS: cart button actions, quantities, minimum, removal, subtotals, totals, cash input, change updates, focus restoration, and six local image paths.");
 console.log("Tests use a minimal DOM stub; browser layout and actual image loading require manual testing.");
 
 const reset = () => elements["new-transaction"].click();

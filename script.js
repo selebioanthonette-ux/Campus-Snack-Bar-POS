@@ -4,8 +4,8 @@ const products = [
   { id: "cheeseburger", name: "Cheeseburger", price: 65, image: "pitures/burger cheese.jpg" },
   { id: "ham-sandwich", name: "Ham Sandwich", price: 40, image: "pitures/ham sandwich.jpg" },
   { id: "french-fries", name: "French Fries (Regular)", price: 45, image: "pitures/regular french fries.jpg" },
-  { id: "nachos", name: "Nachos", price: 50 },
-  { id: "soda", name: "Soda (Can)", price: 25 }
+  { id: "nachos", name: "Nachos", price: 50, image: "pitures/nachos.jpg" },
+  { id: "soda", name: "Soda (Can)", price: 25, image: "pitures/soda (can).jpg" }
 ];
 
 // One entry per product: { productId, quantity }. Data lasts until page reload.
