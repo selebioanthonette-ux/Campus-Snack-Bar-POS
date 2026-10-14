@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Snack Bar POS — Scenario 4</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <h1>Campus Snack Bar POS</h1>
+      <p>Scenario 4 · IT415 Practical Examination</p>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="panel catalog" aria-labelledby="products-heading">
+      <div class="section-heading">
+        <h2 id="products-heading">Product List</h2>
+        <span class="catalog-count">6 products</span>
+      </div>
+      <p class="section-description">Campus favorites. All prices in Philippine pesos.</p>
+      <div id="product-list" class="product-list"></div>
+      <noscript><p>Please enable JavaScript to display the product catalog.</p></noscript>
+      <p class="checkpoint-note" id="catalog-note">Interface preview: Add to Cart will be enabled in the ordering checkpoint.</p>
+    </section>
+
+    <div class="transaction-column">
+      <section class="panel" aria-labelledby="cart-heading">
+        <h2 id="cart-heading">Cart / Order Summary</h2>
+        <div id="cart-items" class="empty-state">
+          <p class="empty-title">Your cart is empty</p>
+          <p>Order items and quantities will appear here.</p>
+        </div>
+        <div class="total-row"><span>Total Amount</span><strong id="total-amount">₱0.00</strong></div>
+      </section>
+
+      <section class="panel" aria-labelledby="payment-heading">
+        <h2 id="payment-heading">Payment</h2>
+        <p class="section-description">Cash payment</p>
+        <label for="cash-payment">Amount Paid (₱)</label>
+        <input id="cash-payment" type="number" min="0" step="0.01" placeholder="0.00" aria-describedby="payment-note" disabled>
+        <div class="change-row"><span>Change</span><strong id="change-amount">—</strong></div>
+        <button class="payment-button" type="button" disabled aria-describedby="payment-note">Confirm Payment</button>
+        <p class="checkpoint-note" id="payment-note">Payment processing will be enabled in a later checkpoint.</p>
+      </section>
+
+      <section class="panel receipt-panel" aria-labelledby="receipt-heading">
+        <h2 id="receipt-heading">Receipt</h2>
+        <div id="receipt" class="empty-state receipt-empty">
+          <p class="empty-title">No receipt yet</p>
+          <p>A digital receipt will appear here after successful payment, once payment processing is implemented.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
