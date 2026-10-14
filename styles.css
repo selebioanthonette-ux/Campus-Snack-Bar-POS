@@ -89,3 +89,59 @@ input::placeholder { color: var(--muted); opacity: 1; }
   .product-row { align-items: flex-start; flex-direction: column; gap: 10px; }
   h1 { font-size: 24px; }
 }
+
+/* Compact desktop workspace: catalog, complete cart, and payment side by side. */
+.header-content { max-width: 1500px; padding: 14px 24px; }
+h1 { font-size: 24px; }
+.site-header p { margin-top: 2px; font-size: 13px; }
+.workspace { max-width: 1500px; padding: 16px 24px; gap: 16px; grid-template-columns: minmax(290px, 1fr) minmax(390px, 1.2fr) minmax(235px, .75fr); }
+.transaction-column { display: contents; }
+.panel { padding: 16px; }
+h2 { font-size: 18px; }
+h3 { font-size: 14px; }
+.section-description { font-size: 13px; margin-top: 6px; }
+.product-list { margin-top: 14px; }
+.product-row { padding: 12px 0; gap: 8px; min-height: 68px; }
+.product-info { gap: 8px; }
+.product-image { width: 44px; height: 44px; }
+.product-price { font-size: 14px; margin-top: 2px; }
+button { min-height: 34px; padding: 6px 10px; font-size: 13px; }
+.add-button { font-size: 12px; }
+.cart-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 8px; padding: 10px 0; }
+.cart-item h3 { grid-column: 1; grid-row: 1; }
+.cart-unit-price { grid-column: 1; grid-row: 2; font-size: 12px; margin: 0; }
+.cart-subtotal { grid-column: 2; grid-row: 1; font-size: 13px; margin: 0; text-align: right; }
+.quantity-controls { grid-column: 2; grid-row: 2; gap: 5px; margin: 0; justify-content: flex-end; font-size: 12px; }
+.quantity-controls button { min-height: 30px; padding: 3px 8px; }
+.total-row { padding-top: 10px; font-size: 14px; }
+.total-row strong { font-size: 22px; }
+.checkpoint-note { margin-top: 10px; font-size: 12px; }
+label { margin-top: 12px; }
+input { min-height: 38px; padding: 7px 10px; }
+.payment-actions { display: grid; gap: 8px; }
+#payment-message { margin-top: 12px; font-size: 14px; }
+.payment-error { color: #a0251d; }
+.payment-success { color: #235b31; }
+[hidden] { display: none !important; }
+dialog { width: min(520px, calc(100% - 32px)); max-height: calc(100vh - 32px); overflow: auto; padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); }
+dialog::backdrop { background: rgb(30 22 16 / 55%); }
+.receipt-reference { margin: 18px 0 10px; font-weight: 600; font-size: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 8px 4px; text-align: left; border-bottom: 1px solid var(--line); }
+th:last-child, td:last-child { text-align: right; white-space: nowrap; }
+.receipt-total { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; font-variant-numeric: tabular-nums; }
+#receipt-new-transaction { width: 100%; margin-top: 20px; }
+@media (max-width: 1050px) {
+  .workspace { grid-template-columns: minmax(0, 1fr) minmax(390px, 1.2fr); }
+  .transaction-column { display: grid; gap: 12px; }
+}
+@media (max-width: 760px) {
+  .workspace { grid-template-columns: 1fr; padding: 12px; }
+  .header-content { padding: 14px 16px; }
+}
+@media (max-width: 420px) {
+  .product-row { flex-direction: row; align-items: center; }
+  .cart-item { display: block; }
+  .cart-subtotal { text-align: left; margin-top: 4px; }
+  .quantity-controls { justify-content: flex-start; margin-top: 8px; }
+}

@@ -41,20 +41,27 @@
         <h2 id="payment-heading">Payment</h2>
         <p class="section-description">Cash payment</p>
         <label for="cash-payment">Amount Paid (₱)</label>
-        <input id="cash-payment" type="number" min="0" step="0.01" placeholder="0.00" aria-describedby="payment-note">
+        <input id="cash-payment" type="text" inputmode="decimal" placeholder="0.00" aria-describedby="payment-note payment-message">
         <div class="change-row"><span>Change (preview)</span><strong id="change-amount" aria-live="polite">—</strong></div>
-        <button class="payment-button" type="button" disabled aria-describedby="payment-note">Confirm Payment</button>
-        <p class="checkpoint-note" id="payment-note">Change updates as you type. A negative result means the cash is below the total. Payment validation and confirmation will be added in P3.</p>
+        <div class="payment-actions">
+          <button id="confirm-payment" type="button">Confirm Payment</button>
+          <button id="new-transaction" type="button">New Transaction</button>
+          <button id="view-receipt" type="button" hidden>View Receipt</button>
+        </div>
+        <p id="payment-message" role="status" aria-live="polite"></p>
+        <p class="checkpoint-note" id="payment-note">Cash only. Review your order before confirming payment.</p>
       </section>
 
-      <section class="panel receipt-panel" aria-labelledby="receipt-heading">
-        <h2 id="receipt-heading">Receipt</h2>
-        <div id="receipt" class="empty-state receipt-empty">
-          <p class="empty-title">No receipt yet</p>
-          <p>A digital receipt will appear here after successful payment, once payment processing is implemented.</p>
-        </div>
-      </section>
     </div>
   </main>
+  <dialog id="receipt-dialog" aria-labelledby="receipt-heading">
+    <div class="section-heading">
+      <h2 id="receipt-heading">Digital Receipt</h2>
+      <button id="close-receipt" type="button" autofocus>Close</button>
+    </div>
+    <p class="section-description">Campus Snack Bar POS · Payment successful</p>
+    <div id="receipt"></div>
+    <button id="receipt-new-transaction" type="button">New Transaction</button>
+  </dialog>
 </body>
 </html>

@@ -25,6 +25,8 @@ class Element {
     ]);
   }
   focus() { document.activeElement = this; }
+  showModal() { this.open = true; }
+  close() { this.open = false; }
   click() { if (!this.disabled) { this.focus(); this.listeners.click?.(); } }
 }
 
@@ -38,7 +40,8 @@ const root = path.join(__dirname, "..");
 const source = process.argv[2]
   ? fs.readFileSync(process.argv[2], "utf8")
   : fs.readFileSync(path.join(root, "script.js"), "utf8");
-vm.runInNewContext(source, { document });
+const context = vm.createContext({ document });
+vm.runInContext(source, context);
 const catalog = elements["product-list"];
 const cart = elements["cart-items"];
 const total = () => elements["total-amount"].textContent;
@@ -96,3 +99,71 @@ assert.equal(images.length, 4);
 images.forEach((image) => assert.ok(fs.existsSync(path.join(root, image.src)), image.src));
 console.log("PASS: cart button actions, quantities, minimum, removal, subtotals, totals, cash input, change updates, focus restoration, and four local image paths.");
 console.log("Tests use a minimal DOM stub; browser layout and actual image loading require manual testing.");
+
+const reset = () => elements["new-transaction"].click();
+const confirm = () => elements["confirm-payment"].click();
+const message = () => elements["payment-message"].textContent;
+const receiptText = (element) => [element.textContent ?? "", ...element.children.map(receiptText)].join(" ");
+const primaryOrder = () => { add(0); add(0); add(2); add(5); add(5); };
+reset();
+confirm();
+assert.match(message(), /at least one item/);
+assert.equal(elements["receipt-dialog"].open, undefined);
+primaryOrder();
+for (const [value, expected] of [["", /enter a cash/], ["abc", /valid numeric/],
+  ["Infinity", /valid numeric/], ["-1", /negative/], ["199", /Insufficient.*₱200.00/],
+  ["200.001", /two decimal places/]]) {
+  cash(value);
+  confirm();
+  assert.match(message(), expected);
+  assert.equal(elements.receipt.children.length, 0, "Invalid payment cannot generate receipt");
+}
+cash("200");
+confirm();
+assert.match(message(), /Payment successful.*₱200.00.*₱0.00/);
+assert.equal(elements["receipt-dialog"].open, true);
+let text = receiptText(elements.receipt);
+for (const expected of ["TXN-001", "Classic Burger", "Ham Sandwich", "Soda (Can)",
+  "Qty", "₱110.00", "₱40.00", "₱50.00", "Total Amount", "Amount Paid", "Change", "₱200.00", "₱0.00"]) {
+  assert.ok(text.includes(expected), expected);
+}
+assert.equal(elements["cash-payment"].disabled, true);
+assert.equal(elements["confirm-payment"].disabled, true);
+assert.ok(catalog.querySelectorAll("button").every((button) => button.disabled));
+assert.ok(cart.querySelectorAll("button").every((button) => button.disabled));
+// Direct function calls must also refuse to alter a completed order.
+vm.runInContext('addToCart("nachos"); changeQuantity("classic-burger", 1); removeItem("soda"); confirmPayment();', context);
+assert.equal(total(), "₱200.00");
+assert.equal(receiptText(elements.receipt), text);
+elements["close-receipt"].click();
+assert.equal(elements["receipt-dialog"].open, false);
+elements["view-receipt"].click();
+assert.equal(elements["receipt-dialog"].open, true);
+elements["receipt-new-transaction"].click();
+assert.equal(elements["receipt-dialog"].open, false);
+assert.equal(elements.receipt.children.length, 0);
+assert.equal(total(), "₱0.00");
+assert.equal(change(), "—");
+assert.equal(elements["cash-payment"].value, "");
+assert.equal(elements["cash-payment"].disabled, false);
+assert.equal(elements["cash-payment"].getAttribute("aria-invalid"), "false");
+assert.equal(message(), "");
+assert.equal(elements["view-receipt"].hidden, true);
+assert.ok(catalog.querySelectorAll("button").every((button) => !button.disabled));
+primaryOrder();
+cash("250");
+confirm();
+assert.equal(change(), "₱50.00");
+assert.match(receiptText(elements.receipt), /TXN-002/);
+reset();
+for (let i = 0; i < 6; i += 1) add(i);
+cash("280.10");
+confirm();
+assert.equal(change(), "₱0.10");
+assert.equal(elements.receipt.querySelectorAll("tbody")[0].children.length, 6);
+reset();
+cash("abc");
+confirm();
+reset();
+assert.equal(message(), "");
+console.log("PASS: empty/blank/non-numeric/negative/insufficient payment, exact/excess payment, receipt contents, sequential references, completed order locks, receipt reopen, six-item receipt, cent rounding, and full reset.");
